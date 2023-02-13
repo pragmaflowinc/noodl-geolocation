@@ -97,7 +97,7 @@ export default defineNode({
       group: 'GeolocationCoordinates'
     },
     altitudeAccuracy: {
-      displayName: "Latitude",
+      displayName: "Altitude Accuracy",
       type: 'number',
       group: 'GeolocationCoordinates'
     },
