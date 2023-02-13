@@ -21,25 +21,26 @@ export default defineNode({
   docs: 'https://github.com/pragmaflowinc/noodl-geolocation/blob/main/README.md',
   inputs: {
     enableWatchMode: {
-			type: 'boolean',
-			displayName:'Enable Watch Mode',
-      default: false
+      type: 'boolean',
+      displayName: 'Enable Watch Mode',
+      default: false,
+      tooltip: "Something"
     },
     maximumAge: {
-			displayName:'Maximum Age',
+      displayName: 'Maximum Age',
       type: 'number',
       default: 0,
       group: 'Options'
     },
     timeout: {
-			displayName:'Timeout',
+      displayName: 'Timeout',
       type: 'number',
       default: Infinity,
       group: 'Options'
     },
     enableHighAccuracy: {
-			type: 'boolean',
-			displayName:'Enable High Accuracy',
+      type: 'boolean',
+      displayName: 'Enable High Accuracy',
       default: false,
       group: 'Options'
     }
@@ -70,34 +71,42 @@ export default defineNode({
       group: 'GeolocationCoordinates'
     },
     latitude: {
+      displayName: "Latitude",
       type: 'number',
       group: 'GeolocationCoordinates'
     },
     longitude: {
+      displayName: "Longitude",
       type: 'number',
       group: 'GeolocationCoordinates'
     },
     altitude: {
+      displayName: "Altitude",
       type: 'number',
       group: 'GeolocationCoordinates'
     },
     accuracy: {
+      displayName: "Accuracy",
       type: 'number',
       group: 'GeolocationCoordinates'
     },
     altitudeAccuracy: {
+      displayName: "Latitude",
       type: 'number',
       group: 'GeolocationCoordinates'
     },
     heading: {
+      displayName: "Heading",
       type: 'number',
       group: 'GeolocationCoordinates'
     },
     speed: {
+      displayName: "Speed",
       type: 'number',
       group: 'GeolocationCoordinates'
     },
     errorCode: {
+      displayName: "Error Code",
       type: 'number',
       group: 'GeolocationError'
     }
@@ -111,7 +120,7 @@ export default defineNode({
     }
   },
   changed: {
-    enableWatchMode: value => {
+    enableWatchMode: function (value) {
       if (value) {
         this.startWatch()
       } else {
@@ -125,25 +134,17 @@ export default defineNode({
   methods: {
     startWatch() {
       this.watchId = navigator.geolocation.watchPosition(position => locationUpdated(this, position), error => locationError(this, error), this.options)
-      this.sendSignalOnOutput('streamStarted');
+      this.sendSignalOnOutput('watchStarted');
     },
     stopWatch() {
       navigator.geolocation.clearWatch(this.watchId)
-      this.sendSignalOnOutput('streamStarted');
-    },
+      this.sendSignalOnOutput('watchStopped');
+    }
   },
   signals: {
     fetch: {
       displayName: 'Fetch',
       signal: function () { navigator.geolocation.getCurrentPosition(position => locationUpdated(this, position), error => locationError(this, error), this.options) }
     },
-    startWatch: {
-      displayName: 'Start Watch',
-      signal: function () {}
-    },
-    stopWatch: {
-      displayName: 'Stop Watch',
-      signal: function () {}
-    }
   }
 })
