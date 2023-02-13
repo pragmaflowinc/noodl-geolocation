@@ -58,7 +58,7 @@ export default defineNode({
       group: 'Events'
     },
     watchStopped: {
-      displayName: 'Location Stream Started',
+      displayName: 'Location Stream Stopped',
       type: 'signal',
       group: 'Events'
     },
