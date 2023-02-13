@@ -3,7 +3,13 @@ import { defineNode } from '@noodl/noodl-sdk';
 function locationUpdated(_this, position) {
   _this.setOutputs({
     timestamp: position.timestamp,
-    ...position.coords,
+    accuracy: position.coords.accuracy,
+    altitude: position.coords.altitude,
+    altitudeAccuracy: position.coords.altitudeAccuracy,
+    heading: position.coords.heading,
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude,
+    speed: position.coords.speed
   })
   _this.sendSignalOnOutput('locationUpdated');
 }
