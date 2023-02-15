@@ -9,7 +9,8 @@ function locationUpdated(_this, position) {
     heading: position.coords.heading,
     latitude: position.coords.latitude,
     longitude: position.coords.longitude,
-    speed: position.coords.speed
+    speed: position.coords.speed,
+    errorCode: 0
   })
   _this.sendSignalOnOutput('locationUpdated');
 }
